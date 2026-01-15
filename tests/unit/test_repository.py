@@ -3,10 +3,10 @@ import pytest
 from pooch_dataverse import repository
 from pooch_dataverse import utils
 
-valid_dataverse_doi: str = utils.pooch_test_dataverse_doi()
-valid_dataverse_url: str = utils.pooch_test_dataverse_url()
+valid_dataverse_doi: str = "doi:10.11588/data/TKCFEF/" #utils.pooch_test_dataverse_doi()
+valid_dataverse_url: str = "https://dataverse.org/doi:10.11588/data/TKCFEF/" #utils.pooch_test_dataverse_url()
 
-def test_download_url(self):
+def test_download_url():
     #archive_url = "https://dataverse.example.org/dataset.xhtml?persistentId=doi:10.1234/ABC"
     
     fake_api_json = {
@@ -27,10 +27,10 @@ def test_download_url(self):
     mock_response = Mock()
     mock_response.json.return_value = fake_api_json
     
-    repo = repository.DataverseRepository(
-        archive_url= valid_dataverse_url #archive_url,
-        doi="10.1234/ABC"
-    )
+    repo = repository.DataverseRepository.initialize(
+                archive_url=valid_dataverse_url,
+                doi=valid_dataverse_doi,
+            )
     
     download_url = repo.download_url("testfile.txt")
     

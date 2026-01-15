@@ -4,6 +4,7 @@
 [build-system]
 requires = [
     "setuptools >=61",
+    "setuptools_scm[toml] >= 7",
 ]
 build-backend = "setuptools.build_meta"
 
@@ -17,8 +18,8 @@ readme = "README.md"
 maintainers = [
     { name = "Pascal Kollmer", email = "your@email.com" },
 ]
-version = "0.0.1"
-requires-python = ">=3.10"
+dynamic = ["version"]
+requires-python = ">=3.9"
 license-files = ["LICEN[CS]E*"]
 license = "BSD-2-Clause"
 classifiers = [
@@ -47,12 +48,18 @@ docs = [
 # The following section contains setuptools-specific configuration
 # options. For a full reference of available options, check the overview
 # at https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
-[tool.setuptools.packages.find]
-where = ["src"]
+[tool.setuptools]
+packages = [
+    "pooch_dataverse",
+]
+
+[tool.setuptools_scm]
+version_scheme = "post-release"
+local_scheme = "node-and-date"
+write_to = "pooch_dataverse/_version.py"
 
 # The following is the configuration for the pytest test suite
 [tool.pytest.ini_options]
 testpaths = [
     "tests",
-    "notebooks",
 ]
