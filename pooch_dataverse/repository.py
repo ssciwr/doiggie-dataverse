@@ -139,6 +139,9 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
         )
         return download_url
 
+    def licenses(self):
+        return list()
+    
     def create_registry(self) -> dict[str, str]:
         """
         Create a registry dictionary using the data repository's API
@@ -148,10 +151,14 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
         registry : Dict[str,str]
             The registry dictionary.
         """
+        registry: dict[str, str]
+
         for filedata in self.api_response.json()["data"]["latestVersion"]["files"]:
-            return [filedata["dataFile"]["filename"]](
+            registry.add  [filedata["dataFile"]["filename"]](
                 f"md5:{filedata['dataFile']['md5']}"
             )
+        
+        return registry
 
 '''
     def populate_registry(self, pooch):
@@ -168,4 +175,5 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
             pooch.registry[filedata["dataFile"]["filename"]] = (
                 f"md5:{filedata['dataFile']['md5']}"
             )
+
 '''
