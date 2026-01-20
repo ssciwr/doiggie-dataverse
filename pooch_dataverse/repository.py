@@ -153,6 +153,8 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
         """
         registry: dict[str, str]
 
+        # TODO: return valid registry, this does not work yet
+
         for filedata in self.api_response.json()["data"]["latestVersion"]["files"]:
             registry.add  [filedata["dataFile"]["filename"]](
                 f"md5:{filedata['dataFile']['md5']}"

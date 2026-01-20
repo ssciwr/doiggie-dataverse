@@ -23,10 +23,11 @@ class DataverseTestRecord:
 
     @classproperty
     def archive_path(cls) -> str:
-        return f"/data/{cls.data_id}"
+        return f"/data/{cls.data_id}" # TODO: This is correct archive_path
     
-    ## TODO: Is path correct?
-    ## TODO: Bools are not rezognized?
+    # TODO: Add other API response -> response for single file and response for other API request
+    # TODO: Is path correct?
+    # TODO: Bools are not rezognized?
     class endpoints:
         data = _DataverseEndpoint(
             path=f"https://heidata.uni-heidelberg.de/api/datasets/:persistentId?persistentId=doi:10.11588/data/TKCFEF",
