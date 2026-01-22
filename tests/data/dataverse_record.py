@@ -26,11 +26,9 @@ class DataverseTestRecord:
         return f"/data/{cls.data_id}" # TODO: This is correct archive_path
     
     # TODO: Add other API response -> response for single file and response for other API request
-    # TODO: Is path correct?
-    # TODO: Bools are not rezognized?
     class endpoints:
         data = _DataverseEndpoint(
-            path=f"https://heidata.uni-heidelberg.de/api/datasets/:persistentId?persistentId=doi:10.11588/data/TKCFEF",
+            path=f"/api/datasets/:persistentId?persistentId=doi:10.11588/data/TKCFEF",
             response=[
                     {
                         "status":"OK",
@@ -68,7 +66,7 @@ class DataverseTestRecord:
                                                 "uri":"http://creativecommons.org/licenses/by/4.0",
                                                 "iconUri":"https://licensebuttons.net/l/by/4.0/88x31.png"
                                             },
-                                            "fileAccessRequest":true,
+                                            "fileAccessRequest":True,
                                             "metadataBlocks":
                                                 {
                                                     "citation":
@@ -78,151 +76,151 @@ class DataverseTestRecord:
                                                             "fields":
                                                                 [{
                                                                     "typeName":"title",
-                                                                    "multiple":false,
+                                                                    "multiple":False,
                                                                     "typeClass":"primitive",
                                                                     "value":"Test data for the Pooch library"
                                                                     },
                                                                  {
                                                                      "typeName":"otherId",
-                                                                     "multiple":true,
+                                                                     "multiple":True,
                                                                      "typeClass":"compound",
                                                                      "value":
                                                                          [{
                                                                              "otherIdAgency":
                                                                                  {
                                                                                      "typeName":"otherIdAgency",
-                                                                                     "multiple":false,
+                                                                                     "multiple":False,
                                                                                      "typeClass":"primitive",
                                                                                      "value":"Zenodo"
                                                                                      },
                                                                                  "otherIdValue":
                                                                                      {
                                                                                          "typeName":"otherIdValue",
-                                                                                         "multiple":false,
+                                                                                         "multiple":False,
                                                                                          "typeClass":"primitive",
                                                                                          "value":"10.5281/zenodo.4924875"
                                                                                          }}]},
                                                                  {"typeName":"author",
-                                                                  "multiple":true,
+                                                                  "multiple":True,
                                                                   "typeClass":"compound",
                                                                   "value":
                                                                       [{
                                                                           "authorName":
                                                                               {
                                                                                   "typeName":"authorName",
-                                                                                  "multiple":false,
+                                                                                  "multiple":False,
                                                                                   "typeClass":"primitive",
                                                                                   "value":"Uieda, Leonardo"
                                                                                   },
                                                                               "authorIdentifierScheme":
                                                                                   {
                                                                                       "typeName":"authorIdentifierScheme",
-                                                                                      "multiple":false,
+                                                                                      "multiple":False,
                                                                                       "typeClass":"controlledVocabulary",
                                                                                       "value":"ORCID"
                                                                                       },
                                                                                   "authorIdentifier":
                                                                                       {
                                                                                           "typeName":"authorIdentifier",
-                                                                                          "multiple":false,
+                                                                                          "multiple":False,
                                                                                           "typeClass":"primitive",
                                                                                           "value":"0000-0001-6123-9515"
                                                                                           }}]},
                                                                  {
                                                                      "typeName":"datasetContact",
-                                                                     "multiple":true,
+                                                                     "multiple":True,
                                                                      "typeClass":"compound",
                                                                      "value":
                                                                          [{
                                                                              "datasetContactName":
                                                                                  {
                                                                                      "typeName":"datasetContactName",
-                                                                                     "multiple":false,
+                                                                                     "multiple":False,
                                                                                      "typeClass":"primitive",
                                                                                      "value":"Kempf, Dominic"
                                                                                      },
                                                                                  "datasetContactAffiliation":
                                                                                      {
                                                                                          "typeName":"datasetContactAffiliation",
-                                                                                         "multiple":false,
+                                                                                         "multiple":False,
                                                                                          "typeClass":"primitive",
                                                                                          "value":"Scientific Software Center, Heidelberg University"
                                                                                          },
                                                                                      "datasetContactEmail":
                                                                                          {
                                                                                              "typeName":"datasetContactEmail",
-                                                                                             "multiple":false,
+                                                                                             "multiple":False,
                                                                                              "typeClass":"primitive",
                                                                                              "value":"dominic.kempf@iwr.uni-heidelberg.de"
                                                                                              }}]},
                                                                  {
                                                                      "typeName":"dsDescription",
-                                                                     "multiple":true,
+                                                                     "multiple":True,
                                                                      "typeClass":"compound",
                                                                      "value":
                                                                          [{
                                                                              "dsDescriptionValue":
                                                                                  {
                                                                                      "typeName":"dsDescriptionValue",
-                                                                                     "multiple":false,
+                                                                                     "multiple":False,
                                                                                      "typeClass":"primitive",
                                                                                      "value":"<a href=\"https://github.com/fatiando/pooch\">Pooch</a> is an open-source Python library for data download. This archive contains testing data for Pooch's DataVerse download functionality."
                                                                                      }}]},
                                                                  {
                                                                      "typeName":"subject",
-                                                                     "multiple":true,
+                                                                     "multiple":True,
                                                                      "typeClass":"controlledVocabulary",
                                                                      "value":["Computer and Information Science"
                                                                               ]},
                                                                  {
                                                                      "typeName":"publication",
-                                                                     "multiple":true,
+                                                                     "multiple":True,
                                                                      "typeClass":"compound",
                                                                      "value":
                                                                          [{
                                                                              "publicationCitation":
                                                                                  {
                                                                                      "typeName":"publicationCitation",
-                                                                                     "multiple":false,
+                                                                                     "multiple":False,
                                                                                      "typeClass":"primitive",
                                                                                      "value":"Uieda, L., Soler, S. R., Rampin, R., van Kemenade, H., Turk, M., Shapero, D., Banihirwe, A., & Leeman, J. (2020). Pooch: A friend to fetch your data files. Journal of Open Source Software, 5(45), 1943."
                                                                                      },
                                                                                  "publicationIDType":
                                                                                      {
                                                                                          "typeName":"publicationIDType",
-                                                                                         "multiple":false,"typeClass":"controlledVocabulary",
+                                                                                         "multiple":False,"typeClass":"controlledVocabulary",
                                                                                          "value":"doi"
                                                                                          },
                                                                                      "publicationIDNumber":
                                                                                          {
                                                                                              "typeName":"publicationIDNumber",
-                                                                                             "multiple":false,
+                                                                                             "multiple":False,
                                                                                              "typeClass":"primitive",
                                                                                              "value":"10.21105/joss.01943"
                                                                                              },
                                                                                          "publicationURL":
                                                                                              {
                                                                                                  "typeName":"publicationURL",
-                                                                                                 "multiple":false,
+                                                                                                 "multiple":False,
                                                                                                  "typeClass":"primitive",
                                                                                                  "value":"https://doi.org/10.21105/joss.01943"
                                                                                                  }}]},
                                                                  {
                                                                      "typeName":"dateOfDeposit",
-                                                                     "multiple":false,
+                                                                     "multiple":False,
                                                                      "typeClass":"primitive",
                                                                      "value":"2022-07-22"
                                                                      },
                                                                  {
                                                                      "typeName":"software",
-                                                                     "multiple":true,
+                                                                     "multiple":True,
                                                                      "typeClass":"compound",
                                                                      "value":
                                                                          [{
                                                                              "softwareName":
                                                                                  {
                                                                                      "typeName":"softwareName",
-                                                                                     "multiple":false,
+                                                                                     "multiple":False,
                                                                                      "typeClass":"primitive",
                                                                                      "value":"Pooch"
                                                                                      }}]}]},
@@ -235,7 +233,7 @@ class DataverseTestRecord:
                                                 "files":
                                                     [{
                                                         "label":"store.zip",
-                                                        "restricted":false,
+                                                        "restricted":False,
                                                         "version":1,
                                                         "datasetVersionId":835,
                                                         "dataFile":
@@ -254,14 +252,14 @@ class DataverseTestRecord:
                                                                     {
                                                                         "type":"MD5","value":"7008231125631739b64720d1526619ae"
                                                                         },
-                                                                    "tabularData":false,
+                                                                    "tabularData":False,
                                                                     "creationDate":"2022-07-22",
                                                                     "publicationDate":"2022-07-25",
-                                                                    "fileAccessRequest":true
+                                                                    "fileAccessRequest":True
                                                                     }},
                                                      {
                                                          "label":"tiny-data.txt",
-                                                         "restricted":false,
+                                                         "restricted":False,
                                                          "version":1,
                                                          "datasetVersionId":835,
                                                          "dataFile":
@@ -281,10 +279,10 @@ class DataverseTestRecord:
                                                                          "type":"MD5",
                                                                          "value":"70e2afd3fd7e336ae478b1e740a5f08e"
                                                                          },
-                                                                     "tabularData":false,
+                                                                     "tabularData":False,
                                                                      "creationDate":"2022-07-22",
                                                                      "publicationDate":"2022-07-25",
-                                                                     "fileAccessRequest":true
+                                                                     "fileAccessRequest":True
                                                                      }}]}}}
                     ]
             )

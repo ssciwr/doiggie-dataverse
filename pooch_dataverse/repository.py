@@ -151,31 +151,9 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
         registry : Dict[str,str]
             The registry dictionary.
         """
-        registry: dict[str, str]
-
-        # TODO: return valid registry, this does not work yet
-
+        registry: dict[str, str] = dict()
+     
         for filedata in self.api_response.json()["data"]["latestVersion"]["files"]:
-            registry.add  [filedata["dataFile"]["filename"]](
-                f"md5:{filedata['dataFile']['md5']}"
-            )
-        
+            registry[filedata["dataFile"]["filename"]] = f"md5:{filedata['dataFile']['md5']}"
+            
         return registry
-
-'''
-    def populate_registry(self, pooch):
-       """
-        Populate the registry using the data repository's API
-
-        Parameters
-        ----------
-        pooch : Pooch
-            The pooch instance that the registry will be added to.
-       """
-
-        for filedata in self.api_response.json()["data"]["latestVersion"]["files"]:
-            pooch.registry[filedata["dataFile"]["filename"]] = (
-                f"md5:{filedata['dataFile']['md5']}"
-            )
-
-'''
