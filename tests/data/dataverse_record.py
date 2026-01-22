@@ -11,6 +11,8 @@ class _DataverseEndpoint:
     path: str
     response: dict
 
+#TODO  : single file DOI: doi:10.11588/DATA/TKCFEF/AUYGUO
+
 
 class DataverseTestRecord:
     @classproperty
@@ -23,9 +25,10 @@ class DataverseTestRecord:
 
     @classproperty
     def archive_path(cls) -> str:
-        return f"/data/{cls.data_id}" # TODO: This is correct archive_path
+        return f"/dataset.xhtml?persistentId=doi:{cls.doi}" # TODO: This is correct archive_path
     
     # TODO: Add other API response -> response for single file and response for other API request
+    # archive_url: https://heidata.uni-heidelberg.de/dataset.xhtml?persistentId=doi:10.11588/data/TKCFEF
     class endpoints:
         data = _DataverseEndpoint(
             path=f"/api/datasets/:persistentId?persistentId=doi:10.11588/data/TKCFEF",

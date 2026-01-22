@@ -28,6 +28,7 @@ def test_initialize(data_repo_tester):
             archive_path=DataverseTestRecord.archive_path
         )
     
+    # License - > data: latestVersion: license
 licenses_testcases = [
     # TESTCASE 1: empty API response
     
@@ -41,26 +42,49 @@ licenses_testcases = [
 ]
 
 @pytest.mark.parametrize(
-    "always_mock,record_id,status_code,json_resp,result", licenses_testcases
+    "always_mock,json_resp,result", licenses_testcases
 )
 def test_licenses(
     data_repo_tester, 
     always_mock,
-    record_id,
-    json_resp, 
-    filename, 
+    json_resp,  
     result
-    ):
-    repo_tester = data_repo_tester() # TODO: Fit to Dataverse
+    ): 
+    repo_tester = data_repo_tester() 
     with repo_tester.endpoint_mocker(always_mock=always_mock) as m:
-        m.get(f"/api/records/{record_id}/files", json=json_resp)
-        repo_tester.initialize_repo(doi="doi", archive_path=f"/records/{record_id!s}")
+        m.get(DataverseTestRecord.endpoints.data.path, json=json_resp)
+        repo_tester.initialize_repo(doi="doi", archive_path=DataverseTestRecord.archive_path) # doi is given as string because it's unimportant in current context
+        if isinstance(result, Exception):
+            with pytest.raises(type(result), match=str(result)):
+                repo_tester.repo.licenses()
+        else:
+            assert repo_tester.repo.licenses() == result
+
+download_url_testcases = [
+
+]
+
+@pytest.mark.parametrize(
+    "always_mock,json_resp,filename,result", download_url_testcases
+)
+def test_download_url(
+    data_repo_tester, 
+    always_mock,
+    json_resp,  
+    filename,
+    result
+    ): 
+    repo_tester = data_repo_tester() 
+    with repo_tester.endpoint_mocker(always_mock=always_mock) as m:
+        m.get(DataverseTestRecord.endpoints.data.path, json=json_resp)
+        repo_tester.initialize_repo(doi="doi", archive_path=DataverseTestRecord.archive_path) # doi is given as string because it's unimportant in current context
         if isinstance(result, Exception):
             with pytest.raises(type(result), match=str(result)):
                 repo_tester.repo.download_url(filename)
         else:
             assert repo_tester.repo.download_url(filename) == result
-                
+
+
 create_registry_testcases = [
     # TESTCASE 1: empty API response
     
