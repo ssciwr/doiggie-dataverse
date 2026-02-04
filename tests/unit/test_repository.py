@@ -34,7 +34,7 @@ licenses_testcases = [
     (
         True,
         {"data": []},
-        ValueError() # TODO: Check what kind of value error
+        ValueError # TODO: Check what kind of value error
     ),
     # TESTCASE 2: malformed API response (empty license)
     (
@@ -52,7 +52,7 @@ licenses_testcases = [
             }
         },
         # TODO: What is that error?!
-        KeyError("license"),
+        KeyError
     ),
     # TESTCASE 3: 1 custom license in API response
     (
@@ -71,7 +71,7 @@ licenses_testcases = [
                         }                    
                 }
             }
-        }
+        },
         ["Custom License"]   
     ),
     # TESTCASE 4: 1 license in API response
@@ -150,7 +150,8 @@ download_url_testcases =  [
     
     (   
         False,
-        
+        DataverseTestRecord.endpoints.data.response,
+        "wrongFileName.zip",
         ValueError(f"File 'invalid_file' not found in data archive {DataverseTestRecord.archive_path} (doi:{DataverseTestRecord.doi})")  
     ),
     

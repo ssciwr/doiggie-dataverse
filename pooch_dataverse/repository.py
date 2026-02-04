@@ -4,8 +4,6 @@ from functools import cached_property
 from pooch_doi import DataRepository
 from pooch_doi.repository import DEFAULT_TIMEOUT
 
-from .utils import parse_url
-
 class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docstring
     # A URL for an issue tracker for this implementation
     issue_tracker: Optional[str] = "https://github.com/ssciwr/pooch-dataverse/issues"
@@ -80,14 +78,20 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
         """
         # Lazy import requests to speed up import time
         import requests  # pylint: disable=C0415
-
+        """
+        from urllib.parse import urlsplit
         parsed = parse_url(archive_url)
         response = requests.get(
             f"{parsed['protocol']}://{parsed['netloc']}/api/datasets/"
             f":persistentId?persistentId=doi:{doi}",
             timeout=DEFAULT_TIMEOUT,
         )
-        return response
+        if urlsplit(archive_url).netloc != "dataverse.org":
+            return None
+        """
+        #return  response
+        pass
+
 
     @property
     def api_response(self):
