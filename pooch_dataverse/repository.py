@@ -4,8 +4,6 @@ from functools import cached_property
 from pooch_doi import DataRepository
 from pooch_doi.repository import DEFAULT_TIMEOUT
 
-from .utils import parse_url
-
 class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docstring
     # A URL for an issue tracker for this implementation
     issue_tracker: Optional[str] = "https://github.com/ssciwr/pooch-dataverse/issues"
@@ -80,14 +78,20 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
         """
         # Lazy import requests to speed up import time
         import requests  # pylint: disable=C0415
-
+        """
+        from urllib.parse import urlsplit
         parsed = parse_url(archive_url)
         response = requests.get(
             f"{parsed['protocol']}://{parsed['netloc']}/api/datasets/"
             f":persistentId?persistentId=doi:{doi}",
             timeout=DEFAULT_TIMEOUT,
         )
-        return response
+        if urlsplit(archive_url).netloc != "dataverse.org":
+            return None
+        """
+        #return  response
+        pass
+
 
     @property
     def api_response(self):
@@ -139,6 +143,10 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
         )
         return download_url
 
+    def licenses(self):
+        # TODO: implement
+        return list()
+    
     def create_registry(self) -> dict[str, str]:
         """
         Create a registry dictionary using the data repository's API
@@ -148,24 +156,9 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
         registry : Dict[str,str]
             The registry dictionary.
         """
+        registry: dict[str, str] = dict()
+     
         for filedata in self.api_response.json()["data"]["latestVersion"]["files"]:
-            return [filedata["dataFile"]["filename"]](
-                f"md5:{filedata['dataFile']['md5']}"
-            )
-
-'''
-    def populate_registry(self, pooch):
-       """
-        Populate the registry using the data repository's API
-
-        Parameters
-        ----------
-        pooch : Pooch
-            The pooch instance that the registry will be added to.
-       """
-
-        for filedata in self.api_response.json()["data"]["latestVersion"]["files"]:
-            pooch.registry[filedata["dataFile"]["filename"]] = (
-                f"md5:{filedata['dataFile']['md5']}"
-            )
-'''
+            registry[filedata["dataFile"]["filename"]] = f"md5:{filedata['dataFile']['md5']}"
+            
+        return registry
