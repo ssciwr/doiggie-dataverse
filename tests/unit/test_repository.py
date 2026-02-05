@@ -10,7 +10,7 @@ def test_sanity_checks(sanity_check_data_repo):
     
 def test_initialize(data_repo_tester):
     # TESTCASE 1: With invalid archive_path -> invalid archive_url
-    data_repo_tester().assert_repo_does_initialize(archive_path="/somevalue/abc")
+    data_repo_tester().assert_repo_does_not_initialize(archive_path="/somevalue/abc")
 
     # TESTCASE 2: With valid archive_url  but invalid api response
     repo_tester = data_repo_tester()
@@ -51,7 +51,6 @@ licenses_testcases = [
                }
             }
         },
-        # TODO: What is that error?!
         KeyError
     ),
     # TESTCASE 3: 1 custom license in API response
