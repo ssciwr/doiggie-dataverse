@@ -4,6 +4,8 @@ from functools import cached_property
 from pooch_doi import DataRepository
 from pooch_doi.repository import DEFAULT_TIMEOUT
 
+from urllib.parse import urlsplit
+
 class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docstring
     # A URL for an issue tracker for this implementation
     issue_tracker: Optional[str] = "https://github.com/ssciwr/pooch-dataverse/issues"
@@ -78,19 +80,17 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
         """
         # Lazy import requests to speed up import time
         import requests  # pylint: disable=C0415
-        """
-        from urllib.parse import urlsplit
-        parsed = parse_url(archive_url)
+        
+        parsed = urlsplit(archive_url)
         response = requests.get(
-            f"{parsed['protocol']}://{parsed['netloc']}/api/datasets/"
+            f"{parsed.scheme}://{parsed.netloc}/api/datasets/"
             f":persistentId?persistentId=doi:{doi}",
             timeout=DEFAULT_TIMEOUT,
         )
         if urlsplit(archive_url).netloc != "dataverse.org":
             return None
-        """
-        #return  response
-        pass
+        
+        return  response
 
 
     @property
@@ -125,7 +125,7 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
         download_url : str
             The HTTP URL that can be used to download the file.
         """
-        parsed = parse_url(self.archive_url)
+        parsed = urlsplit(self.archive_url)
         response = self.api_response.json()
         files = {
             file["dataFile"]["filename"]: file["dataFile"]
