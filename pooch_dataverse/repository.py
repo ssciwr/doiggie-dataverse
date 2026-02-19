@@ -39,7 +39,11 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
         """
         return "https://dataverse.org/"  # pragma: no cover
 
-
+    def __init__(self, doi, archive_url):
+        self.archive_url = archive_url
+        self.doi = doi
+        self._api_response = None
+    
     @classmethod
     def initialize(cls, doi, archive_url):
         """
@@ -138,7 +142,7 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
             )
         # Generate download_url using the file id
         download_url = (
-            f"{parsed['protocol']}://{parsed['netloc']}/api/access/datafile/"
+            f"{parsed.scheme}://{parsed.netloc}/api/access/datafile/"
             f"{files[file_name]['id']}"
         )
         return download_url
