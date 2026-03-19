@@ -27,6 +27,12 @@ class DataverseTestRecord:
     def archive_path(cls) -> str:
         return f"/dataset.xhtml?persistentId=doi:{cls.doi}" # TODO: This is correct archive_path
     
+    @classproperty
+    def archive_url(cls) -> str:
+        return f"https://dataverse.org{cls.archive_path}"
+    
+    #https://heidata.uni-heidelberg.de/api/datasets
+    
     # TODO: Add other API response -> response for single file and response for other API request
     # archive_url: https://heidata.uni-heidelberg.de/dataset.xhtml?persistentId=doi:10.11588/data/TKCFEF
     # archive_url: https://heidata.uni-heidelberg.de/api/datasets/:persistentId?persistentId=doi:10.11588/DATA/TKCFEF/AUYGU0 # Doesn't work atp
@@ -35,7 +41,6 @@ class DataverseTestRecord:
         data = _DataverseEndpoint(
             path=f"/api/datasets/:persistentId?persistentId=doi:10.11588/data/TKCFEF",
             response=
-            [
                 {
                     "status":"OK",
                     "data":
@@ -317,14 +322,5 @@ class DataverseTestRecord:
                             ]
                         }
                     }
-                }
-            ]
-        )
-        
-        single_file_data = _DataverseEndpoint(
-            path=f"",
-            response=
-            [
-                
-            ]
+                }  
         )
