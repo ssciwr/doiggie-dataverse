@@ -3,6 +3,7 @@ from functools import cached_property
 
 from pooch_doi import DataRepository
 from pooch_doi.repository import DEFAULT_TIMEOUT
+from pooch_doi.license import *
 
 from urllib.parse import urlsplit
 
@@ -148,8 +149,15 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
         return download_url
 
     def licenses(self):
-        # TODO: implement
-        return list()
+        license_data = self.api_response["license"]
+        if not license_data:
+            return list()
+        
+        return License(
+            name=license_data["name"],
+            identifiers=[LicenseIdentifier(scheme=LicenseIdentifierScheme.URL,
+                                           value=license_data["url"])]
+        )
     
     def create_registry(self) -> dict[str, str]:
         """

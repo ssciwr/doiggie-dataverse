@@ -63,3 +63,6 @@ write_to = "pooch_dataverse/_version.py"
 testpaths = [
     "tests",
 ]
+
+[project.entry-points."pooch.data_repositories"]
+dataverse = "pooch_dataverse:DataverseRepository"
