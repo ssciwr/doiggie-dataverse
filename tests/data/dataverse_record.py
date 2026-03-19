@@ -27,6 +27,10 @@ class DataverseTestRecord:
     def archive_path(cls) -> str:
         return f"/dataset.xhtml?persistentId=doi:{cls.doi}" # TODO: This is correct archive_path
     
+    @classproperty
+    def archive_url(cls) -> str:
+        return f"https://dataverse.org{cls.archive_path}"
+    
     #https://heidata.uni-heidelberg.de/api/datasets
     
     # TODO: Add other API response -> response for single file and response for other API request

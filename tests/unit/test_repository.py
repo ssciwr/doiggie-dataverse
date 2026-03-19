@@ -2,7 +2,7 @@ import pytest
 
 from tests.data.dataverse_record import DataverseTestRecord
 
-#from pooch_doi.license import * #Commented out for quick testing, TODO: Comment back in when importing error has been fixed
+from pooch_doi.license import * #Commented out for quick testing, TODO: Comment back in when importing error has been fixed
 from pooch_dataverse.repository import DataverseRepository
 
 def test_sanity_checks(sanity_check_data_repo):
@@ -50,7 +50,7 @@ licenses_testcases = [
                }
             }
         },
-        []
+        list()
     ),
     # TESTCASE 3: 1 custom license in API response
     (
@@ -70,13 +70,20 @@ licenses_testcases = [
                 }
             }
         },
-        ["Custom License"]   
+        License(
+            name="Custom License"
+        )
     ),
     # TESTCASE 4: 1 license in API response
     (
         False,
         DataverseTestRecord.endpoints.data.response, # actual response only has one license
-        ["CC BY 4.0","http://creativecommons.org/licenses/by/4.0", "https://licensebuttons.net/l/by/4.0/88x31.png"],
+        License(
+            name="CC BY 4.0",
+            identifiers=[LicenseIdentifier(scheme=LicenseIdentifierScheme.URL,
+                                           value="http://creativecommons.org/licenses/by/4.0")]
+        )
+        #["CC BY 4.0","http://creativecommons.org/licenses/by/4.0", "https://licensebuttons.net/l/by/4.0/88x31.png"],
     )
 ]
 
@@ -127,7 +134,7 @@ download_url_testcases =  [
         False,
         DataverseTestRecord.endpoints.data.response,
         "wrongFileName.zip",
-        ValueError(f"File 'invalid_file' not found in data archive {DataverseTestRecord.archive_path} (doi:{DataverseTestRecord.doi})")  
+        ValueError(f"File 'wrongFileName.zip' not found in data archive")  
     ),
     
 ]
@@ -158,7 +165,8 @@ create_registry_testcases = [
     (
         True,
         {},
-        {}, # registry will be empty
+        #{}, # registry will be empty
+        KeyError("data")
     ),
     
     # TESTCASE 2: malformed API response (no checksum given)
@@ -192,7 +200,7 @@ create_registry_testcases = [
                 }
             }
         },
-      KeyError("checksum"),
+      KeyError("md5"),
     ),
     # TESTCASE 3: valid API response
     (

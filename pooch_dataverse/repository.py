@@ -149,15 +149,24 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
         return download_url
 
     def licenses(self):
-        license_data = self.api_response["license"]
+        license_data = self.api_response.json()["data"]["latestVersion"]["license"]
         if not license_data:
             return list()
-        
-        return License(
-            name=license_data["name"],
-            identifiers=[LicenseIdentifier(scheme=LicenseIdentifierScheme.URL,
-                                           value=license_data["url"])]
-        )
+
+        uri = license_data.get("uri")
+
+        if uri:
+            return License(
+                name=license_data["name"],
+                identifiers=[
+                    LicenseIdentifier(
+                        scheme=LicenseIdentifierScheme.URL,
+                        value=uri
+                    )
+                ]
+            )
+    
+        return License(name=license_data["name"])
     
     def create_registry(self) -> dict[str, str]:
         """
