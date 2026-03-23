@@ -27,13 +27,15 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
+    "pooch-doi @ git+https://github.com/ssciwr/pooch-doi.git@main",
 ]
 
 [project.optional-dependencies]
 tests = [
     "pytest",
     "pytest-cov",
-    "nbval",
+    "pytest-mock",
+    "requests-mock",
 ]
 docs = [
     "ipykernel",
