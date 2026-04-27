@@ -92,9 +92,7 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
             f":persistentId?persistentId=doi:{doi}",
             timeout=DEFAULT_TIMEOUT,
         )
-        if urlsplit(archive_url).netloc != "dataverse.org":
-            return None
-        
+
         return  response
 
 
