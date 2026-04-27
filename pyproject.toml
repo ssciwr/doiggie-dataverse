@@ -13,10 +13,11 @@ build-backend = "setuptools.build_meta"
 # single source of truth for pooch_dataverse's version
 [project]
 name = "pooch_dataverse"
-description = "Add short description here"
+description = "Dataverse support for pooch-doi"
 readme = "README.md"
 maintainers = [
-    { name = "Pascal Kollmer", email = "your@email.com" },
+    { name = "Pascal Kollmer" },
+    { name = "Dominic Kempf", email = "ssc@uni-heidelberg.de" },
 ]
 dynamic = ["version"]
 requires-python = ">=3.9"
