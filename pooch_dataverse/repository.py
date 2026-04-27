@@ -6,7 +6,7 @@ from pooch_doi import DataRepository
 from pooch_doi.repository import DEFAULT_TIMEOUT
 from pooch_doi.license import *
 
-from urllib.parse import urlsplit
+from urllib.parse import parse_qs, urlsplit
 
 
 class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docstring
@@ -192,16 +192,18 @@ class KnownInstancesDataverseRepository(DataverseRepository):
 
     @classmethod
     def initialize(cls, doi: str, archive_url: str):
-        # Remove any trailing slashes
-        archive_url = archive_url.strip("/")
+        parsed = urlsplit(archive_url)
+        base_url = f"{parsed.scheme}://{parsed.netloc}".rstrip("/")
 
-        # Pre-flight check to match only <base_url>/records/<record_id> archive_urls.
-        parts = archive_url.split("/")
-        if len(parts) < 2 or parts[-2] != "records":
+        if base_url not in _known_dataverse_instances():
             return None
 
-        base_url = "/".join(parts[:-2])
-        record_id = parts[-1]
+        # DOI resolution lands on the Dataverse dataset page, not on a
+        # record detail URL. Restrict the shortcut to dataset landing pages.
+        if parsed.path.rstrip("/") != "/dataset.xhtml":
+            return None
 
-        if any(archive_url.startswith(inst) for inst in _known_dataverse_instances()):
-            return cls(doi, base_url, record_id)
+        if not parse_qs(parsed.query).get("persistentId"):
+            return None
+
+        return cls(doi, archive_url)

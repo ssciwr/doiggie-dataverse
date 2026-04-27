@@ -21,7 +21,7 @@ def test_initialize(data_repo_tester):
 
     # TESTCASE 2: With valid archive_url and valid api response -> valid archive_url
     repo_tester = data_repo_tester()
-    with repo_tester.endpoint_mocker() as m:
+    with repo_tester.endpoint_mocker(always_mock=True) as m:
         m.get(DataverseTestRecord.endpoints.data.path, json={"key": "valid response"})
         repo_tester.assert_repo_does_initialize(
             doi=DataverseTestRecord.doi, archive_path=DataverseTestRecord.archive_path
@@ -47,7 +47,7 @@ licenses_testcases = [
     ),
     # TESTCASE 3: 1 custom license in API response
     (
-        False,
+        True,
         {
             "status": "OK",
             "data": {
@@ -106,7 +106,7 @@ download_url_testcases = [
         False,
         DataverseTestRecord.endpoints.data.response,
         "store.zip",
-        "https://dataverse.org/api/access/datafile/7133",
+        f"{DataverseTestRecord.base_url}/api/access/datafile/7133",
     ),
     # TESTCASE 4: valid API response with invalid filename
     (

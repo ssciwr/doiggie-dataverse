@@ -12,8 +12,8 @@ pytest_plugins = ["pooch_doi.testkit"]
 def data_repo_tester(create_data_repo_tester_type):
     return create_data_repo_tester_type(
         DataverseRepository,
-        archive_base_url_fallback="https://dataverse.org",
-        api_base_url_fallback="https://dataverse.org",
+        archive_base_url_fallback=DataverseTestRecord.base_url,
+        api_base_url_fallback=DataverseTestRecord.base_url,
     )
 
 

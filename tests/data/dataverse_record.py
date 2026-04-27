@@ -17,6 +17,10 @@ class _DataverseEndpoint:
 
 class DataverseTestRecord:
     @classproperty
+    def base_url(cls) -> str:
+        return "https://heidata.uni-heidelberg.de"
+
+    @classproperty
     def doi(cls) -> str:
         return "10.11588/data/TKCFEF"
 
@@ -30,7 +34,7 @@ class DataverseTestRecord:
 
     @classproperty
     def archive_url(cls) -> str:
-        return f"https://dataverse.org{cls.archive_path}"
+        return f"{cls.base_url}{cls.archive_path}"
 
     # https://heidata.uni-heidelberg.de/api/datasets
 
