@@ -7,6 +7,7 @@ from pooch_doi.license import *
 
 from urllib.parse import urlsplit
 
+
 class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docstring
     # A URL for an issue tracker for this implementation
     issue_tracker: Optional[str] = "https://github.com/ssciwr/pooch-dataverse/issues"
@@ -21,8 +22,6 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
     # Whether this implementation performs requests to external services
     # during initialization. We use this to minimize the execution time.
     init_requires_requests: bool = True
-
-
 
     @property
     def name(self) -> str:
@@ -44,7 +43,7 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
         self.archive_url = archive_url
         self.doi = doi
         self._api_response = None
-    
+
     @classmethod
     def initialize(cls, doi, archive_url):
         """
@@ -85,7 +84,7 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
         """
         # Lazy import requests to speed up import time
         import requests  # pylint: disable=C0415
-        
+
         parsed = urlsplit(archive_url)
         response = requests.get(
             f"{parsed.scheme}://{parsed.netloc}/api/datasets/"
@@ -93,8 +92,7 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
             timeout=DEFAULT_TIMEOUT,
         )
 
-        return  response
-
+        return response
 
     @property
     def api_response(self):
@@ -157,15 +155,12 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
             return License(
                 name=license_data["name"],
                 identifiers=[
-                    LicenseIdentifier(
-                        scheme=LicenseIdentifierScheme.URL,
-                        value=uri
-                    )
-                ]
+                    LicenseIdentifier(scheme=LicenseIdentifierScheme.URL, value=uri)
+                ],
             )
-    
+
         return License(name=license_data["name"])
-    
+
     def create_registry(self) -> dict[str, str]:
         """
         Create a registry dictionary using the data repository's API
@@ -176,8 +171,10 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
             The registry dictionary.
         """
         registry: dict[str, str] = dict()
-     
+
         for filedata in self.api_response.json()["data"]["latestVersion"]["files"]:
-            registry[filedata["dataFile"]["filename"]] = f"md5:{filedata['dataFile']['md5']}"
-            
+            registry[filedata["dataFile"]["filename"]] = (
+                f"md5:{filedata['dataFile']['md5']}"
+            )
+
         return registry
