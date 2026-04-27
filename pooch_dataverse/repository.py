@@ -1,5 +1,6 @@
 from typing import Optional
-from functools import cached_property
+from functools import cached_property, lru_cache
+from importlib.resources import files
 
 from pooch_doi import DataRepository
 from pooch_doi.repository import DEFAULT_TIMEOUT
@@ -178,3 +179,29 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
             )
 
         return registry
+
+
+@lru_cache(maxsize=1)
+def _known_dataverse_instances() -> list[str]:
+    instances_file = files("pooch_dataverse").joinpath("instances.txt")
+    return instances_file.read_text(encoding="utf-8").splitlines()
+
+
+class KnownInstancesDataverseRepository(DataverseRepository):
+    init_requires_requests = False
+
+    @classmethod
+    def initialize(cls, doi: str, archive_url: str):
+        # Remove any trailing slashes
+        archive_url = archive_url.strip("/")
+
+        # Pre-flight check to match only <base_url>/records/<record_id> archive_urls.
+        parts = archive_url.split("/")
+        if len(parts) < 2 or parts[-2] != "records":
+            return None
+
+        base_url = "/".join(parts[:-2])
+        record_id = parts[-1]
+
+        if any(archive_url.startswith(inst) for inst in _known_dataverse_instances()):
+            return cls(doi, base_url, record_id)
