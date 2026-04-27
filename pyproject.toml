@@ -38,15 +38,6 @@ tests = [
     "pytest-mock",
     "requests-mock",
 ]
-docs = [
-    "ipykernel",
-    "nbsphinx",
-    "nbsphinx-link",
-    "sphinx",
-    "sphinx_mdinclude",
-    "sphinx_rtd_theme",
-]
-
 
 # The following section contains setuptools-specific configuration
 # options. For a full reference of available options, check the overview
