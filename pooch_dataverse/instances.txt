@@ -72,6 +72,7 @@ https://borealisdata.ca/dataverse/westernu
 https://borealisdata.ca/dataverse/windsor
 https://borealisdata.ca/dataverse/york
 https://dados.ipb.pt/
+https://dadosdepesquisa.ufg.br/dataverse/ufg
 https://danebadawcze.uw.edu.pl/
 https://darus.uni-stuttgart.de
 https://data.aussda.at/
@@ -148,7 +149,6 @@ https://dataverse.no/
 https://dataverse.no/dataverse/trolling
 https://dataverse.openforestdata.pl/
 https://dataverse.orc.gmu.edu
-https://dataverse.rhi.hi.is
 https://dataverse.rsu.lv/dataverse/rsu
 https://dataverse.tdl.org/
 https://dataverse.tec.ac.cr/
@@ -182,6 +182,7 @@ https://entrepot.recherche.data.gouv.fr/dataverse/inrae
 https://entrepot.recherche.data.gouv.fr/dataverse/root/?q=
 https://entrepot.recherche.data.gouv.fr/dataverse/univ-amu
 https://entrepot.recherche.data.gouv.fr/dataverse/univ-cotedazur/
+https://gagnis.hi.is/
 https://globedata.uni-leipzig.de/
 https://health-study-hub.de/
 https://heidata.uni-heidelberg.de
@@ -230,6 +231,7 @@ https://www.adp.fdv.uni-lj.si/en/
 https://www.iza.org/en/idsc
 https://www.murray.harvard.edu/
 https://www.redape.dados.embrapa.br/
+https://www.sodanet.gr/
 https://www.sodha.be/
 https://www.ucd.ie/issda/
 https://www.uni-hildesheim.de/bibliothek/forschen-publizieren/forschungsdatenmanagement/hilreda/
