@@ -1,5 +1,5 @@
 from tests.data.dataverse_record import DataverseTestRecord
-from pooch_dataverse import KnownInstancesDataverseRepository
+from doiggie_dataverse import KnownInstancesDataverseRepository
 
 
 def test_sanity_checks(sanity_check_data_repo):

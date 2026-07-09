@@ -1,11 +1,11 @@
 import pytest
-from pooch_dataverse.repository import (
+from doiggie_dataverse.repository import (
     DataverseRepository,
     KnownInstancesDataverseRepository,
 )
 from tests.data.dataverse_record import DataverseTestRecord
 
-pytest_plugins = ["pooch_doi.testkit"]
+pytest_plugins = ["doiggie.testkit"]
 
 
 @pytest.fixture(scope="session")

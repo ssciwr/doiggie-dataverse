@@ -2,16 +2,16 @@ from typing import Optional
 from functools import cached_property, lru_cache
 from importlib.resources import files
 
-from pooch_doi import DataRepository
-from pooch_doi.repository import DEFAULT_TIMEOUT
-from pooch_doi.license import *
+from doiggie import DataRepository
+from doiggie.repository import DEFAULT_TIMEOUT
+from doiggie.license import *
 
 from urllib.parse import parse_qs, urlsplit
 
 
 class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docstring
     # A URL for an issue tracker for this implementation
-    issue_tracker: Optional[str] = "https://github.com/ssciwr/pooch-dataverse/issues"
+    issue_tracker: Optional[str] = "https://github.com/ssciwr/doiggie-dataverse/issues"
 
     # Whether the repository allows self-hosting
     allows_self_hosting: bool = True
@@ -183,7 +183,7 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
 
 @lru_cache(maxsize=1)
 def _known_dataverse_instances() -> list[str]:
-    instances_file = files("pooch_dataverse").joinpath("instances.txt")
+    instances_file = files("doiggie_dataverse").joinpath("instances.txt")
     return instances_file.read_text(encoding="utf-8").splitlines()
 
 

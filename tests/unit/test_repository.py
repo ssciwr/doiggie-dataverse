@@ -2,8 +2,8 @@ import pytest
 
 from tests.data.dataverse_record import DataverseTestRecord
 
-from pooch_doi.license import *  # Commented out for quick testing, TODO: Comment back in when importing error has been fixed
-from pooch_dataverse.repository import DataverseRepository
+from doiggie.license import *  # Commented out for quick testing, TODO: Comment back in when importing error has been fixed
+from doiggie_dataverse.repository import DataverseRepository
 
 
 def test_sanity_checks(sanity_check_data_repo):

@@ -10,10 +10,10 @@ build-backend = "setuptools.build_meta"
 
 # This section provides general project metadata that is used across
 # a variety of build tools. Notably, the version specified here is the
-# single source of truth for pooch_dataverse's version
+# single source of truth for doiggie_dataverse's version
 [project]
-name = "pooch_dataverse"
-description = "Dataverse support for pooch-doi"
+name = "doiggie-dataverse"
+description = "Dataverse support for doiggie"
 readme = "README.md"
 maintainers = [
     { name = "Pascal Kollmer" },
@@ -28,7 +28,7 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    "pooch-doi @ git+https://github.com/ssciwr/pooch-doi.git@main",
+    "doiggie",
 ]
 
 [project.optional-dependencies]
@@ -44,13 +44,16 @@ tests = [
 # at https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
 [tool.setuptools]
 packages = [
-    "pooch_dataverse",
+    "doiggie_dataverse",
 ]
+
+[tool.setuptools.package-data]
+doiggie_dataverse = ["instances.txt"]
 
 [tool.setuptools_scm]
 version_scheme = "post-release"
 local_scheme = "node-and-date"
-write_to = "pooch_dataverse/_version.py"
+write_to = "doiggie_dataverse/_version.py"
 
 # The following is the configuration for the pytest test suite
 [tool.pytest.ini_options]
@@ -58,5 +61,5 @@ testpaths = [
     "tests",
 ]
 
-[project.entry-points."pooch.data_repositories"]
-dataverse = "pooch_dataverse:DataverseRepository"
+[project.entry-points."doiggie.data_repositories"]
+dataverse = "doiggie_dataverse:DataverseRepository"

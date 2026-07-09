@@ -21,4 +21,4 @@ jobs:
       uses: ssciwr/pooch-re3data-action@v1
       with:
         software: "Dataverse"
-        filename: "pooch_dataverse/instances.txt"
+        filename: "doiggie_dataverse/instances.txt"
