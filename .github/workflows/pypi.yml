@@ -15,6 +15,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v7
+      with:
+        # setuptools_scm requires a non-shallow clone of the repository
+        fetch-depth: 0
 
     - uses: actions/setup-python@v6
       name: Install Python
