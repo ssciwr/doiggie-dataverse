@@ -90,6 +90,7 @@ https://data.scielo.org/
 https://data.scielo.org/dataverse/scielomexico
 https://data.sciencespo.fr
 https://data.sciencespo.fr/dataverse/cdsp
+https://data.socialsciences.cornell.edu/
 https://data.tu-dortmund.de
 https://data.univ-gustave-eiffel.fr/
 https://data.worldagroforestry.org/
