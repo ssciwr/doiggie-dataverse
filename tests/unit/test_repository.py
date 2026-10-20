@@ -60,21 +60,23 @@ licenses_testcases = [
                 }
             },
         },
-        License(name="Custom License"),
+        [License(name="Custom License")],
     ),
     # TESTCASE 4: 1 license in API response
     (
         False,
         DataverseTestRecord.endpoints.data.response,  # actual response only has one license
-        License(
-            name="CC BY 4.0",
-            identifiers=[
-                LicenseIdentifier(
-                    scheme=LicenseIdentifierScheme.URL,
-                    value="http://creativecommons.org/licenses/by/4.0",
-                )
-            ],
-        ),
+        [
+            License(
+                name="CC BY 4.0",
+                identifiers=(
+                    LicenseIdentifier(
+                        scheme=LicenseIdentifierScheme.URL,
+                        value="http://creativecommons.org/licenses/by/4.0",
+                    ),
+                ),
+            )
+        ],
         # ["CC BY 4.0","http://creativecommons.org/licenses/by/4.0", "https://licensebuttons.net/l/by/4.0/88x31.png"],
     ),
 ]
