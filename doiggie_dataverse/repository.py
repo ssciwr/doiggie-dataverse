@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 from functools import cached_property, lru_cache
 from importlib.resources import files
 
@@ -145,7 +145,7 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
         )
         return download_url
 
-    def licenses(self):
+    def licenses(self) -> List[License]:
         license_data = self.api_response.json()["data"]["latestVersion"]["license"]
         if not license_data:
             return list()
@@ -153,14 +153,18 @@ class DataverseRepository(DataRepository):  # pylint: disable=missing-class-docs
         uri = license_data.get("uri")
 
         if uri:
-            return License(
-                name=license_data["name"],
-                identifiers=[
-                    LicenseIdentifier(scheme=LicenseIdentifierScheme.URL, value=uri)
-                ],
-            )
+            return [
+                License(
+                    name=license_data["name"],
+                    identifiers=(
+                        LicenseIdentifier(
+                            scheme=LicenseIdentifierScheme.URL, value=uri
+                        ),
+                    ),
+                )
+            ]
 
-        return License(name=license_data["name"])
+        return [License(name=license_data["name"])]
 
     def create_registry(self) -> dict[str, str]:
         """
